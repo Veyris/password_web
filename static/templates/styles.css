@@ -1,0 +1,27 @@
+body{
+    background-color:#292F33 ;
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Roboto Mono', monospace;
+    color: white;
+}
+
+.navbar {
+    margin: 0;
+}
+
+div {
+    margin: 0;
+}
+
+hr.style13 {
+	height: 10px;
+	border: 0;
+	box-shadow: 0 10px 10px -10px #8c8b8b inset;
+}
+h1{
+    font-family: 'Roboto Mono', monospace;
+}
+#div2{
+    text-align: left;
+}
