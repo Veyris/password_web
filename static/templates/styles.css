@@ -25,3 +25,8 @@ h1{
 #div2{
     text-align: left;
 }
+
+img {
+    border-style : solid;
+    border-color : red;
+}

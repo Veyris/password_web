@@ -8,7 +8,8 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@600&display=swap" rel="stylesheet"> 
-        <title>EasyPass - Safe and Easy Passwords</title>
+        <title>{% block title %}
+            {% endblock %}</title>
       
     </head>
 
@@ -24,7 +25,9 @@
                     <li class="nav-item">
                             <a class="nav-link" href="/">Whats EasyPass |<span class="sr-only">(current)</span></a>
                     </li>
-                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="create_password">Create a Strong & Memorizable Password |</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="password_pwned">Check for Leaked Passwords |</a>
                     </li>

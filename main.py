@@ -88,3 +88,14 @@ def help():
 
 if __name__ == "__main__":
 	app.run()
+
+@app.route("/create_password", methods=["POST", "GET"])
+def choose_option():
+    if request.method == "POST":
+        option = request.form["opt"]
+        if option == "A) Minimum Length of 10 & Strength-Check":
+            return render_template("/create/create_optA.html")
+        elif option == "B) Minimum Length of 08 & Wordlist-Check":
+            return render_template("/create/create_optB.html")
+    else:
+        return render_template("/create/create_password.html")
