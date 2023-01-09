@@ -110,7 +110,7 @@ provider "openstack" {
 
 resource "openstack_compute_keypair_v2" "terraform-keypair" {
 
-  name       = "terraform-pubkey"
+  name       = "ssh-pub"
 
   public_key = file("~/.ssh/id_rsa.pub")
 
@@ -136,9 +136,9 @@ resource "openstack_compute_keypair_v2" "terraform-keypair" {
 
 resource "openstack_networking_secgroup_v2" "terraform-secgroup" {
 
-  name        = "terraform-secgroup"
+  name        = "EasyPassSecurity"
 
-  description = "for terraform instances"
+  description = "Portfreigaben"
 
 }
 
@@ -244,7 +244,7 @@ resource "openstack_networking_secgroup_rule_v2" "terraform-secgroup-rule-ssh" {
 
 resource "openstack_networking_network_v2" "terraform-network-1" {
 
-  name           = "my-terraform-network-1"
+  name           = "Netzwerk1"
 
   admin_state_up = "true"
 
@@ -254,7 +254,7 @@ resource "openstack_networking_network_v2" "terraform-network-1" {
 
 resource "openstack_networking_subnet_v2" "terraform-subnet-1" {
 
-  name       = "my-terraform-subnet-1"
+  name       = "Subnetz1"
 
   network_id = openstack_networking_network_v2.terraform-network-1.id
 
@@ -560,7 +560,35 @@ resource "openstack_compute_instance_v2" "terraform-instance-2" {
 
 
 
+resource "openstack_compute_instance_v2" "terraform-instance-3" {
 
+  name              = "Logger"
+
+  image_name        = local.image_name
+
+  flavor_name       = local.flavor_name
+
+  key_pair          = openstack_compute_keypair_v2.terraform-keypair.name
+
+  security_groups   = [openstack_networking_secgroup_v2.terraform-secgroup.name]
+
+
+
+  depends_on = [openstack_networking_subnet_v2.terraform-subnet-1]
+
+
+
+  network {
+
+    uuid = openstack_networking_network_v2.terraform-network-1.id
+
+  }
+
+
+
+  
+
+}
 
 
 
@@ -665,6 +693,32 @@ resource "openstack_lb_monitor_v2" "monitor_1" {
 }
 
 
+
+###########################################################################
+
+#
+
+# assign floating ip to logger
+
+#
+
+###########################################################################
+
+resource "openstack_networking_floatingip_v2" "fip_2" {
+
+  pool    = "public1"
+
+}
+
+
+
+resource "openstack_compute_floatingip_associate_v2" "fip_2" {
+
+   floating_ip = "${openstack_networking_floatingip_v2.fip_2.address}"
+
+   instance_id = "${openstack_compute_instance_v2.terraform-instance-3.id}"
+
+}
 
 
 
