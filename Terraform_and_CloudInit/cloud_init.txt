@@ -1,0 +1,95 @@
+#!/bin/bash
+
+	now=$(date +"%T")
+
+	echo "$now : Init started!" > /home/ubuntu/logfile_init.txt
+
+
+
+	now=$(date +"%T")
+
+	echo "$now : Starting Updating Packages!" >> /home/ubuntu/logfile_init.txt
+
+
+
+	apt-get update
+
+
+
+	now=$(date +"%T")
+
+	echo "$now : Finished Updating Packages!" >> /home/ubuntu/logfile_init.txt
+
+
+
+	now=$(date +"%T")
+
+	echo "$now : Starting Installing Dependencies!" >> /home/ubuntu/logfile_init.txt
+
+
+
+	apt-get -y install python3
+
+	apt-get -y install python3-flask
+
+	apt-get -y install python3-pip
+
+	apt-get -y install build-essential python3-dev
+
+
+
+	now=$(date +"%T")
+
+	echo "$now : Finished Installing Dependencies!" >> /home/ubuntu/logfile_init.txt
+
+
+
+	now=$(date +"%T")
+
+	echo "$now : Starting Installing Pips!" >> /home/ubuntu/logfile_init.txt
+
+
+
+	pip install uwsgi
+
+	pip install zxcvbn
+
+
+
+	now=$(date +"%T")
+
+	echo "$now : Finished Installing Pips!" >> /home/ubuntu/logfile_init.txt
+
+
+
+	now=$(date +"%T")
+
+	echo "$now : Starting Cloning Git!" >> /home/ubuntu/logfile_init.txt
+
+
+
+	cd /home/ubuntu
+
+	git clone https://github.com/Veyris/password_web.git
+
+
+
+	now=$(date +"%T")
+
+	echo "$now : Finished Cloning Git!" >> /home/ubuntu/logfile_init.txt
+
+
+
+	now=$(date +"%T")
+
+	echo "$now : Starting Webserver with wsgi!" >> /home/ubuntu/logfile_init.txt
+
+	cd password_web
+
+	uwsgi --http :5000 --wsgi-file main.py --callable app
+
+
+
+	now=$(date +"%T")
+
+	echo "$now : WebserverRunning on Port 5000" >> /home/ubuntu/logfile_init.txt
