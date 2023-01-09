@@ -85,7 +85,7 @@ def check_strength():
 @app.route("/faq")
 def help():
         return render_template("/help.html")
-
+'''
 @app.route("/create_password", methods=["POST", "GET"])
 def choose_option():
     if request.method == "POST":
@@ -96,6 +96,6 @@ def choose_option():
             return render_template("/create/create_optB.html")
     else:
         return render_template("/create/create_password.html")
-
+'''
 if __name__ == "__main__":
 	app.run(debug=False, host='0.0.0.0')
